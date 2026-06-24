@@ -1,0 +1,7 @@
+# MVP core has no required third-party dependencies.
+#
+# Later phases:
+# fastapi
+# uvicorn[standard]
+# requests
+# beautifulsoup4
