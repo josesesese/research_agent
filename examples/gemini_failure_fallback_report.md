@@ -1,3 +1,8 @@
+## Runtime Notes
+
+- Gemini report generation failed, so the system returned the deterministic template report.
+- Failure reason: gemini_api_error: GEMINI_API_KEY is not set. Set GEMINI_API_KEY for Gemini report synthesis, or use --llm-mode mock for offline tests.
+
 # Research Report: compare Cursor and Windsurf
 
 > MVP note: this report may use mock or live web sources depending on the selected search mode. Verify fast-changing facts before external use.

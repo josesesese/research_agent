@@ -1,0 +1,183 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Research Agent</title>
+    <link rel="stylesheet" href="/styles.css">
+  </head>
+  <body>
+    <div class="app-shell">
+      <header class="topbar">
+        <div>
+          <p class="eyebrow">Citation-grounded workspace</p>
+          <h1>Research Agent</h1>
+        </div>
+        <div class="status-pill" id="connectionStatus">Ready</div>
+      </header>
+
+      <main class="workspace">
+        <aside class="control-panel">
+          <form id="researchForm">
+            <label class="field-label" for="questionInput">Research question</label>
+            <textarea id="questionInput" name="question" rows="7">compare youtube and bilibili</textarea>
+
+            <div class="form-row">
+              <span class="field-label">Search mode</span>
+              <div class="segmented-control" role="radiogroup" aria-label="Search mode">
+                <label>
+                  <input type="radio" name="mode" value="mock">
+                  <span>Mock</span>
+                </label>
+                <label>
+                  <input type="radio" name="mode" value="auto">
+                  <span>Auto</span>
+                </label>
+                <label>
+                  <input type="radio" name="mode" value="web" checked>
+                  <span>Web</span>
+                </label>
+              </div>
+            </div>
+
+            <div class="form-row">
+              <span class="field-label">LLM mode</span>
+              <div class="segmented-control" role="radiogroup" aria-label="LLM mode">
+                <label>
+                  <input type="radio" name="llmMode" value="mock">
+                  <span>Template</span>
+                </label>
+                <label>
+                  <input type="radio" name="llmMode" value="auto">
+                  <span>Auto</span>
+                </label>
+                <label>
+                  <input type="radio" name="llmMode" value="gemini" checked>
+                  <span>Gemini</span>
+                </label>
+              </div>
+            </div>
+
+            <div class="form-row">
+              <span class="field-label">Embedding mode</span>
+              <div class="segmented-control" role="radiogroup" aria-label="Embedding mode">
+                <label>
+                  <input type="radio" name="embeddingMode" value="hash">
+                  <span>Hash</span>
+                </label>
+                <label>
+                  <input type="radio" name="embeddingMode" value="auto">
+                  <span>Auto</span>
+                </label>
+                <label>
+                  <input type="radio" name="embeddingMode" value="gemini" checked>
+                  <span>Gemini</span>
+                </label>
+              </div>
+            </div>
+
+            <label class="toggle-row">
+              <input type="checkbox" id="enableRag" checked>
+              <span>Use RAG</span>
+            </label>
+
+            <label class="toggle-row">
+              <input type="checkbox" id="saveTrace" checked>
+              <span>Save trace</span>
+            </label>
+
+            <div class="button-row">
+              <button type="submit" class="primary-button" id="runButton">Run research</button>
+              <button type="button" class="secondary-button" id="resetButton">Reset</button>
+            </div>
+          </form>
+
+          <section class="progress-panel" aria-live="polite">
+            <div class="progress-header">
+              <h2>Run Status</h2>
+              <span id="activeMode">web</span>
+            </div>
+            <ol class="step-list" id="stepList">
+              <li data-step="plan">Plan</li>
+              <li data-step="search">Search</li>
+              <li data-step="read">Read</li>
+              <li data-step="rag">Retrieve</li>
+              <li data-step="extract">Extract</li>
+              <li data-step="synthesize">Synthesize</li>
+              <li data-step="check">Check citations</li>
+            </ol>
+          </section>
+        </aside>
+
+        <section class="results-panel">
+          <nav class="tabs" aria-label="Result views">
+            <button class="tab-button active" type="button" data-tab="report">Report</button>
+            <button class="tab-button" type="button" data-tab="sources">Sources</button>
+            <button class="tab-button" type="button" data-tab="trace">Trace</button>
+          </nav>
+
+          <section class="tab-view active" id="reportView">
+            <div class="result-toolbar">
+              <div>
+                <p class="eyebrow">Generated report</p>
+                <h2 id="reportTitle">No run yet</h2>
+                <div class="run-summary" id="runSummary">Search mode: web</div>
+              </div>
+              <button class="secondary-button compact" type="button" id="copyButton" disabled>Copy Markdown</button>
+            </div>
+            <div class="empty-state" id="emptyState">
+              <h3>No report yet</h3>
+              <p>Results will appear here.</p>
+            </div>
+            <article class="markdown-report" id="reportOutput" hidden></article>
+          </section>
+
+          <section class="tab-view" id="sourcesView">
+            <div class="split-grid">
+              <div>
+                <div class="section-heading">
+                  <p class="eyebrow">Retrieved material</p>
+                  <h2>Sources</h2>
+                </div>
+                <div class="source-list" id="sourceList"></div>
+              </div>
+              <div>
+                <div class="section-heading">
+                  <p class="eyebrow">Extracted support</p>
+                  <h2>Evidence</h2>
+                </div>
+                <div class="evidence-list" id="evidenceList"></div>
+              </div>
+            </div>
+          </section>
+
+          <section class="tab-view" id="traceView">
+            <div class="split-grid trace-grid">
+              <div>
+                <div class="section-heading">
+                  <p class="eyebrow">Claim graph</p>
+                  <h2>Claims</h2>
+                </div>
+                <div class="claim-list" id="claimList"></div>
+              </div>
+              <div>
+                <div class="section-heading">
+                  <p class="eyebrow">Saved artifacts</p>
+                  <h2>Run Trace</h2>
+                </div>
+                <div class="trace-box" id="traceBox">No saved run yet.</div>
+                <div class="section-heading trace-rag-heading">
+                  <p class="eyebrow">Retrieved context</p>
+                  <h2>RAG Chunks</h2>
+                </div>
+                <div class="evidence-list" id="ragList"></div>
+              </div>
+            </div>
+          </section>
+        </section>
+      </main>
+    </div>
+
+    <script src="/app.js"></script>
+  </body>
+</html>

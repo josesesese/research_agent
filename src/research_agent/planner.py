@@ -2,6 +2,8 @@
 
 from __future__ import annotations
 
+import re
+
 from research_agent.models import ResearchPlan, ResearchQuestion, ResearchSubQuestion
 
 
@@ -59,10 +61,21 @@ class Planner:
                     rationale="在资料不足时主动标注限制。",
                 ),
             ]
-            search_queries = [question.text]
+            search_queries = build_generic_search_queries(question.text)
 
         return ResearchPlan(
             question=question,
             sub_questions=sub_questions,
             search_queries=search_queries,
         )
+
+
+def build_generic_search_queries(question_text: str) -> list[str]:
+    queries = [question_text]
+    comparison = re.search(r"\bcompare\s+(.+?)\s+and\s+(.+?)\s*$", question_text, flags=re.IGNORECASE)
+    if comparison:
+        left = comparison.group(1).strip(" .,:;")
+        right = comparison.group(2).strip(" .,:;")
+        if left and right:
+            queries.extend([left, right, f"{left} {right} comparison"])
+    return list(dict.fromkeys(queries))

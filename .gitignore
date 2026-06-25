@@ -24,6 +24,7 @@ dist/
 
 # Local run outputs
 runs/
+vector_store/
 
 # Editor, OS, and local tool metadata
 .idea/

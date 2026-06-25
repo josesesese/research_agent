@@ -1,7 +1,11 @@
-# MVP core has no required third-party dependencies.
+# CLI core has no required third-party dependencies.
 #
-# Later phases:
-# fastapi
-# uvicorn[standard]
-# requests
-# beautifulsoup4
+# Install these for the FastAPI backend:
+fastapi>=0.111.0
+uvicorn[standard]>=0.30.0
+
+# Optional but recommended for cleaner web page extraction:
+trafilatura>=1.9.0
+readability-lxml>=0.8.1
+beautifulsoup4>=4.12.0
+lxml>=5.0.0

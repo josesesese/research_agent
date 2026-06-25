@@ -75,6 +75,15 @@ class Claim:
 
 
 @dataclass(frozen=True)
+class RetrievedChunk:
+    id: str
+    source_id: str
+    text: str
+    score: float
+    rank: int
+
+
+@dataclass(frozen=True)
 class CitationIssue:
     claim_id: str
     message: str
@@ -94,6 +103,7 @@ class ResearchReport:
     documents: list[Document]
     evidence: list[Evidence]
     claims: list[Claim]
+    retrieved_chunks: list[RetrievedChunk]
     citation_check: CitationCheckResult
     metadata: dict[str, str]
     markdown: str

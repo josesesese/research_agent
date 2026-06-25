@@ -1,12 +1,12 @@
 {
   "question": {
     "text": "compare Cursor and Windsurf",
-    "created_at": "2026-06-24T14:09:15.394310+00:00"
+    "created_at": "2026-06-25T06:41:32.599738+00:00"
   },
   "plan": {
     "question": {
       "text": "compare Cursor and Windsurf",
-      "created_at": "2026-06-24T14:09:15.394310+00:00"
+      "created_at": "2026-06-25T06:41:32.599738+00:00"
     },
     "sub_questions": [
       {
@@ -90,7 +90,7 @@
         "snippet": "Cursor is positioned as an AI-first code editor for developers."
       },
       "text": "Cursor is an AI-first code editor built around coding workflows. It emphasizes repository-aware chat, inline editing, autocomplete, and agent-style code changes inside an editor experience that feels close to VS Code. Teams commonly evaluate Cursor for fast code navigation, multi-file edits, and tight integration with existing developer habits.",
-      "fetched_at": "2026-06-24T14:09:15.394310+00:00",
+      "fetched_at": "2026-06-25T06:41:32.599738+00:00",
       "read_error": null
     },
     {
@@ -103,7 +103,7 @@
         "snippet": "Cursor is often strong when developers want AI in a familiar editor."
       },
       "text": "Cursor is strongest for developers who want AI assistance without leaving a familiar editor model. Its value is most visible in codebase Q&A, refactoring, explaining unfamiliar files, and making targeted changes with human review. A common tradeoff is that teams still need clear review discipline because AI-generated diffs can look plausible while missing project-specific constraints.",
-      "fetched_at": "2026-06-24T14:09:15.394310+00:00",
+      "fetched_at": "2026-06-25T06:41:32.599738+00:00",
       "read_error": null
     },
     {
@@ -116,7 +116,7 @@
         "snippet": "Windsurf focuses on agentic coding flows and AI-assisted development."
       },
       "text": "Windsurf is presented as an AI coding environment focused on agentic software development. It emphasizes flows where the assistant can keep context across a task, propose changes, and help developers move from intent to implementation with less manual prompting. Teams may evaluate Windsurf when they want a more guided AI coding workspace rather than only editor-level autocomplete.",
-      "fetched_at": "2026-06-24T14:09:15.394310+00:00",
+      "fetched_at": "2026-06-25T06:41:32.599738+00:00",
       "read_error": null
     },
     {
@@ -129,7 +129,7 @@
         "snippet": "Windsurf can be attractive for guided, agentic workflows."
       },
       "text": "Windsurf is strongest when the user wants the coding assistant to drive larger task flows, maintain task context, and suggest next steps. Its product story is less about being a drop-in editor clone and more about making AI collaboration feel central to the workspace. A tradeoff is that users who strongly prefer established editor muscle memory may need time to adapt.",
-      "fetched_at": "2026-06-24T14:09:15.394310+00:00",
+      "fetched_at": "2026-06-25T06:41:32.599738+00:00",
       "read_error": null
     },
     {
@@ -142,7 +142,7 @@
         "snippet": "AI coding tools differ by editor familiarity, autonomy, context, and pricing."
       },
       "text": "AI coding tools are commonly compared across editor familiarity, autonomous task execution, repository context, collaboration controls, price, model options, and enterprise governance. Buyers should verify current pricing and policy details from official pages because these products change quickly.",
-      "fetched_at": "2026-06-24T14:09:15.394310+00:00",
+      "fetched_at": "2026-06-25T06:41:32.599738+00:00",
       "read_error": null
     }
   ],
@@ -263,13 +263,59 @@
       "confidence": 0.58
     }
   ],
+  "retrieved_chunks": [
+    {
+      "id": "chunk_5c72b1e81f7c8a82",
+      "source_id": "src_windsurf_strengths",
+      "text": "Windsurf is strongest when the user wants the coding assistant to drive larger task flows, maintain task context, and suggest next steps. Its product story is less about being a drop-in editor clone and more about making AI collaboration feel central to the workspace. A tradeoff is that users who strongly prefer established editor muscle memory may need time to adapt.",
+      "score": 0.2552,
+      "rank": 1
+    },
+    {
+      "id": "chunk_68e1901c51065028",
+      "source_id": "src_windsurf_overview",
+      "text": "Windsurf is presented as an AI coding environment focused on agentic software development. It emphasizes flows where the assistant can keep context across a task, propose changes, and help developers move from intent to implementation with less manual prompting. Teams may evaluate Windsurf when they want a more guided AI coding workspace rather than only editor-level autocomplete.",
+      "score": 0.254,
+      "rank": 2
+    },
+    {
+      "id": "chunk_e2f76f96816d70fd",
+      "source_id": "src_cursor_overview",
+      "text": "Cursor is an AI-first code editor built around coding workflows. It emphasizes repository-aware chat, inline editing, autocomplete, and agent-style code changes inside an editor experience that feels close to VS Code. Teams commonly evaluate Cursor for fast code navigation, multi-file edits, and tight integration with existing developer habits.",
+      "score": 0.1744,
+      "rank": 3
+    },
+    {
+      "id": "chunk_8776a14a6278928e",
+      "source_id": "src_cursor_strengths",
+      "text": "Cursor is strongest for developers who want AI assistance without leaving a familiar editor model. Its value is most visible in codebase Q&A, refactoring, explaining unfamiliar files, and making targeted changes with human review. A common tradeoff is that teams still need clear review discipline because AI-generated diffs can look plausible while missing project-specific constraints.",
+      "score": 0.1231,
+      "rank": 4
+    },
+    {
+      "id": "chunk_676f846d434ecda5",
+      "source_id": "src_ai_coding_market",
+      "text": "AI coding tools are commonly compared across editor familiarity, autonomous task execution, repository context, collaboration controls, price, model options, and enterprise governance. Buyers should verify current pricing and policy details from official pages because these products change quickly.",
+      "score": 0.0772,
+      "rank": 5
+    }
+  ],
   "citation_check": {
     "passed": true,
     "issues": []
   },
   "metadata": {
     "requested_search_mode": "mock",
-    "actual_search_mode": "mock"
+    "actual_search_mode": "mock",
+    "requested_llm_mode": "mock",
+    "actual_llm_mode": "template",
+    "requested_embedding_mode": "hash",
+    "actual_embedding_provider": "hash",
+    "embedding_failure_reason": "",
+    "rag_enabled": "true",
+    "vector_store_path": "vector_store\\research_agent_vectors.json",
+    "retrieved_chunks": "5",
+    "llm_failure_reason": ""
   },
-  "markdown": "# Research Report: compare Cursor and Windsurf\n\n> MVP note: this report may use mock or live web sources depending on the selected search mode. Verify fast-changing facts before external use.\n\n## Executive Summary\n\n- Cursor 更偏向在熟悉的代码编辑器体验中嵌入 AI，适合希望保留现有编辑器习惯、同时获得代码库问答和多文件修改能力的开发者。 [S1] [S2]\n- Windsurf 更强调 agentic coding workspace，让助手围绕任务保持上下文、推动从意图到实现的流程。 [S3] [S4]\n- 两者核心差异可以概括为：Cursor 更像熟悉编辑器中的 AI 加速层，Windsurf 更像以 AI 协作为中心的任务工作区。 [S2] [S4]\n\n## Research Plan\n\n- **Cursor 和 Windsurf 的产品定位分别是什么？** 产品定位决定最终报告的主线。\n- **两者在开发工作流和 AI 交互方式上有什么差异？** 这是 AI coding tool 对比中最重要的使用体验维度。\n- **两者各自更适合哪些用户或团队？** 报告需要给出可行动的选择建议。\n- **使用这类工具时有哪些共同风险或限制？** 避免只写优点，体现研究完整性。\n\n## Comparison Snapshot\n\n| Dimension | Cursor | Windsurf |\n| --- | --- | --- |\n| Positioning | AI-first editor experience | Agentic coding workspace |\n| Best fit | Developers wanting AI inside familiar coding habits | Users wanting more guided task-level AI collaboration |\n| Workflow emphasis | Codebase chat, inline edits, targeted multi-file changes | Context-retaining flows, task progress, assistant-driven next steps |\n| Main caution | AI diffs still need careful project-aware review | Users may need time to adapt to a more AI-centered workspace |\n\n## Key Claims\n\n- **Cursor positioning:** Cursor 更偏向在熟悉的代码编辑器体验中嵌入 AI，适合希望保留现有编辑器习惯、同时获得代码库问答和多文件修改能力的开发者。 [S1] [S2]\n- **Windsurf positioning:** Windsurf 更强调 agentic coding workspace，让助手围绕任务保持上下文、推动从意图到实现的流程。 [S3] [S4]\n- **Workflow difference:** 两者核心差异可以概括为：Cursor 更像熟悉编辑器中的 AI 加速层，Windsurf 更像以 AI 协作为中心的任务工作区。 [S2] [S4]\n- **Evaluation axes:** 评估 AI coding tools 时，应同时比较编辑器熟悉度、自动化程度、代码库上下文、协作治理、价格和模型选择。 [S5]\n- **Cursor evidence:** 检索到的网页资料包含 Cursor 相关信息，可作为后续产品定位和功能对比的证据基础。 [S1] [S2]\n- **Windsurf evidence:** 检索到的网页资料包含 Windsurf 或 Codeium/Windsurf 相关信息，可用于分析其 AI coding workflow。 [S3] [S4]\n- **Comparison basis:** 当前资料同时覆盖 Cursor 和 Windsurf，报告可以围绕产品定位、工作流、适用人群和风险展开对比。 [S1] [S3]\n- **Pricing verification:** 部分检索资料涉及价格或套餐信息，这类信息变化较快，最终报告需要以官方页面或最新资料复核。 [S5]\n\n## Evidence Extracts\n\n- [S1] Cursor is an AI-first code editor built around coding workflows.\n- [S2] Cursor is strongest for developers who want AI assistance without leaving a familiar editor model.\n- [S3] Windsurf is presented as an AI coding environment focused on agentic software development.\n- [S4] Windsurf is strongest when the user wants the coding assistant to drive larger task flows, maintain task context, and suggest next steps.\n- [S5] AI coding tools are commonly compared across editor familiarity, autonomous task execution, repository context, collaboration controls, price, model options, and enterprise governance.\n\n## Gaps And Next Steps\n\n- Improve live search ranking, source diversity, and official-source filtering.\n- Verify live pricing, product names, policy details, and publication dates before using the report externally.\n- Add an LLM extractor later for richer claim clustering and contradiction handling.\n\n## Sources\n\n- [S1] Cursor product overview (mock, 2026-01-10) - mock://cursor/product-overview\n- [S2] Cursor workflow notes (mock, 2026-01-11) - mock://cursor/workflow-notes\n- [S3] Windsurf product overview (mock, 2026-01-10) - mock://windsurf/product-overview\n- [S4] Windsurf workflow notes (mock, 2026-01-11) - mock://windsurf/workflow-notes\n- [S5] AI coding tools comparison notes (mock, 2026-01-12) - mock://market/ai-coding-tools\n\n## Citation Check\n\nPassed: every claim has at least one valid evidence reference.\n"
+  "markdown": "# Research Report: compare Cursor and Windsurf\n\n> MVP note: this report may use mock or live web sources depending on the selected search mode. Verify fast-changing facts before external use.\n\n## Executive Summary\n\n- Cursor 更偏向在熟悉的代码编辑器体验中嵌入 AI，适合希望保留现有编辑器习惯、同时获得代码库问答和多文件修改能力的开发者。 [S1] [S2]\n- Windsurf 更强调 agentic coding workspace，让助手围绕任务保持上下文、推动从意图到实现的流程。 [S3] [S4]\n- 两者核心差异可以概括为：Cursor 更像熟悉编辑器中的 AI 加速层，Windsurf 更像以 AI 协作为中心的任务工作区。 [S2] [S4]\n\n## Research Plan\n\n- **Cursor 和 Windsurf 的产品定位分别是什么？** 产品定位决定最终报告的主线。\n- **两者在开发工作流和 AI 交互方式上有什么差异？** 这是 AI coding tool 对比中最重要的使用体验维度。\n- **两者各自更适合哪些用户或团队？** 报告需要给出可行动的选择建议。\n- **使用这类工具时有哪些共同风险或限制？** 避免只写优点，体现研究完整性。\n\n## Comparison Snapshot\n\n| Dimension | Cursor | Windsurf |\n| --- | --- | --- |\n| Positioning | AI-first editor experience | Agentic coding workspace |\n| Best fit | Developers wanting AI inside familiar coding habits | Users wanting more guided task-level AI collaboration |\n| Workflow emphasis | Codebase chat, inline edits, targeted multi-file changes | Context-retaining flows, task progress, assistant-driven next steps |\n| Main caution | AI diffs still need careful project-aware review | Users may need time to adapt to a more AI-centered workspace |\n\n## Key Claims\n\n- **Cursor positioning:** Cursor 更偏向在熟悉的代码编辑器体验中嵌入 AI，适合希望保留现有编辑器习惯、同时获得代码库问答和多文件修改能力的开发者。 [S1] [S2]\n- **Windsurf positioning:** Windsurf 更强调 agentic coding workspace，让助手围绕任务保持上下文、推动从意图到实现的流程。 [S3] [S4]\n- **Workflow difference:** 两者核心差异可以概括为：Cursor 更像熟悉编辑器中的 AI 加速层，Windsurf 更像以 AI 协作为中心的任务工作区。 [S2] [S4]\n- **Evaluation axes:** 评估 AI coding tools 时，应同时比较编辑器熟悉度、自动化程度、代码库上下文、协作治理、价格和模型选择。 [S5]\n- **Cursor evidence:** 检索到的网页资料包含 Cursor 相关信息，可作为后续产品定位和功能对比的证据基础。 [S1] [S2]\n- **Windsurf evidence:** 检索到的网页资料包含 Windsurf 或 Codeium/Windsurf 相关信息，可用于分析其 AI coding workflow。 [S3] [S4]\n- **Comparison basis:** 当前资料同时覆盖 Cursor 和 Windsurf，报告可以围绕产品定位、工作流、适用人群和风险展开对比。 [S1] [S3]\n- **Pricing verification:** 部分检索资料涉及价格或套餐信息，这类信息变化较快，最终报告需要以官方页面或最新资料复核。 [S5]\n\n## Evidence Extracts\n\n- [S1] Cursor is an AI-first code editor built around coding workflows.\n- [S2] Cursor is strongest for developers who want AI assistance without leaving a familiar editor model.\n- [S3] Windsurf is presented as an AI coding environment focused on agentic software development.\n- [S4] Windsurf is strongest when the user wants the coding assistant to drive larger task flows, maintain task context, and suggest next steps.\n- [S5] AI coding tools are commonly compared across editor familiarity, autonomous task execution, repository context, collaboration controls, price, model options, and enterprise governance.\n\n## RAG Context\n\n- rank=1, score=0.2552, [S4] Windsurf is strongest when the user wants the coding assistant to drive larger task flows, maintain task context, and suggest next steps. Its product story is less about being a drop-in editor clone and more about making AI collaboration feel central to the wo\n- rank=2, score=0.254, [S3] Windsurf is presented as an AI coding environment focused on agentic software development. It emphasizes flows where the assistant can keep context across a task, propose changes, and help developers move from intent to implementation with less manual promptin\n- rank=3, score=0.1744, [S1] Cursor is an AI-first code editor built around coding workflows. It emphasizes repository-aware chat, inline editing, autocomplete, and agent-style code changes inside an editor experience that feels close to VS Code. Teams commonly evaluate Cursor for fast co\n- rank=4, score=0.1231, [S2] Cursor is strongest for developers who want AI assistance without leaving a familiar editor model. Its value is most visible in codebase Q&A, refactoring, explaining unfamiliar files, and making targeted changes with human review. A common tradeoff is that tea\n- rank=5, score=0.0772, [S5] AI coding tools are commonly compared across editor familiarity, autonomous task execution, repository context, collaboration controls, price, model options, and enterprise governance. Buyers should verify current pricing and policy details from official pages\n\n## Gaps And Next Steps\n\n- Improve live search ranking, source diversity, and official-source filtering.\n- Verify live pricing, product names, policy details, and publication dates before using the report externally.\n- Add an LLM extractor later for richer claim clustering and contradiction handling.\n\n## Sources\n\n- [S1] Cursor product overview (mock, 2026-01-10) - mock://cursor/product-overview\n- [S2] Cursor workflow notes (mock, 2026-01-11) - mock://cursor/workflow-notes\n- [S3] Windsurf product overview (mock, 2026-01-10) - mock://windsurf/product-overview\n- [S4] Windsurf workflow notes (mock, 2026-01-11) - mock://windsurf/workflow-notes\n- [S5] AI coding tools comparison notes (mock, 2026-01-12) - mock://market/ai-coding-tools\n\n## Citation Check\n\nPassed: every claim has at least one valid evidence reference.\n"
 }

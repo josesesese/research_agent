@@ -2,7 +2,9 @@
 
 from __future__ import annotations
 
-from research_agent.models import Claim, Evidence, ResearchPlan, Source
+import re
+
+from research_agent.models import Claim, Evidence, ResearchPlan, RetrievedChunk, Source
 
 
 class Synthesizer:
@@ -14,14 +16,17 @@ class Synthesizer:
         sources: list[Source],
         evidence: list[Evidence],
         claims: list[Claim],
+        retrieved_chunks: list[RetrievedChunk] | None = None,
     ) -> str:
         source_index = {source.id: idx for idx, source in enumerate(sources, start=1)}
         evidence_index = {item.id: item for item in evidence}
+        retrieved_chunks = retrieved_chunks or []
+        has_mock_sources = any(source.url.startswith("mock://") for source in sources)
 
         lines: list[str] = [
             f"# Research Report: {plan.question.text}",
             "",
-            "> MVP note: this report may use mock or live web sources depending on the selected search mode. Verify fast-changing facts before external use.",
+            f"> MVP note: this report uses {'mock demo sources' if has_mock_sources else 'live web sources'}. Verify fast-changing facts before external use.",
             "",
             "## Executive Summary",
             "",
@@ -30,21 +35,12 @@ class Synthesizer:
         for claim in claims[:3]:
             lines.append(f"- {claim.text} {self._citations_for_claim(claim, evidence_index, source_index)}")
 
-        lines.extend(
-            [
-                "",
-                "## Research Plan",
-                "",
-            ]
-        )
-        for sub_question in plan.sub_questions:
-            lines.append(f"- **{sub_question.text}** {sub_question.rationale}")
-
         lines.extend(["", "## Comparison Snapshot", ""])
+        comparison_entities = self._comparison_entities(plan.question.text)
         if self._looks_like_cursor_vs_windsurf(plan.question.text):
             lines.extend(
                 [
-                    "| Dimension | Cursor | Windsurf |",
+                    "| Feature | Cursor | Windsurf |",
                     "| --- | --- | --- |",
                     "| Positioning | AI-first editor experience | Agentic coding workspace |",
                     "| Best fit | Developers wanting AI inside familiar coding habits | Users wanting more guided task-level AI collaboration |",
@@ -52,38 +48,50 @@ class Synthesizer:
                     "| Main caution | AI diffs still need careful project-aware review | Users may need time to adapt to a more AI-centered workspace |",
                 ]
             )
+        elif comparison_entities:
+            left, right = comparison_entities
+            lines.extend(
+                [
+                    f"| Feature | {left} | {right} |",
+                    "| --- | --- | --- |",
+                    "| Positioning | Evidence is summarized from cited sources. | Evidence is summarized from cited sources. |",
+                    "| Audience | See cited evidence and sources below. | See cited evidence and sources below. |",
+                    "| Strengths | Use source-backed claims below. | Use source-backed claims below. |",
+                    "| Cautions | Verify fast-changing details from official sources. | Verify fast-changing details from official sources. |",
+                ]
+            )
         else:
+            evidence_quality = (
+                "Limited deterministic mock corpus"
+                if has_mock_sources
+                else "Live web sources retrieved; coverage may still be narrow"
+            )
+            recommendation = (
+                "Run with --mode web before treating results as factual"
+                if has_mock_sources
+                else "Use citations and source dates to verify the final conclusions"
+            )
             lines.extend(
                 [
                     "| Dimension | Finding |",
                     "| --- | --- |",
-                    "| Evidence quality | Limited in MVP mock mode |",
-                    "| Recommendation | Add real search before treating results as factual |",
+                    f"| Evidence quality | {evidence_quality} |",
+                    f"| Recommendation | {recommendation} |",
                 ]
             )
 
-        lines.extend(["", "## Key Claims", ""])
-        for claim in claims:
-            lines.append(f"- **{claim.topic}:** {claim.text} {self._citations_for_claim(claim, evidence_index, source_index)}")
-
-        lines.extend(["", "## Evidence Extracts", ""])
+        lines.extend(["", "## Evidence", ""])
         for item in evidence:
             source_number = source_index.get(item.source_id, "?")
             lines.append(f"- [S{source_number}] {item.quote}")
 
-        lines.extend(
-            [
-                "",
-                "## Gaps And Next Steps",
-                "",
-                "- Improve live search ranking, source diversity, and official-source filtering.",
-                "- Verify live pricing, product names, policy details, and publication dates before using the report externally.",
-                "- Add an LLM extractor later for richer claim clustering and contradiction handling.",
-                "",
-                "## Sources",
-                "",
-            ]
-        )
+        lines.extend(["", "## Conclusion", ""])
+        if claims:
+            for claim in claims[:2]:
+                lines.append(f"- {claim.text} {self._citations_for_claim(claim, evidence_index, source_index)}")
+        lines.append("- Verify fast-changing details such as pricing, policies, and product capabilities from current official sources before external use.")
+
+        lines.extend(["", "## Sources", ""])
 
         for idx, source in enumerate(sources, start=1):
             date_text = f", {source.published_at}" if source.published_at else ""
@@ -110,3 +118,13 @@ class Synthesizer:
     def _looks_like_cursor_vs_windsurf(self, question: str) -> bool:
         normalized = question.lower()
         return "cursor" in normalized and "windsurf" in normalized
+
+    def _comparison_entities(self, question: str) -> tuple[str, str] | None:
+        match = re.search(r"\bcompare\s+(.+?)\s+and\s+(.+?)\s*$", question, flags=re.IGNORECASE)
+        if not match:
+            return None
+        left = match.group(1).strip(" .,:;")
+        right = match.group(2).strip(" .,:;")
+        if not left or not right:
+            return None
+        return (left[:1].upper() + left[1:], right[:1].upper() + right[1:])
