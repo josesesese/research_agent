@@ -1,4 +1,5 @@
 import json
+import os
 import socket
 import time
 import unittest
@@ -11,6 +12,7 @@ from urllib.error import HTTPError
 from urllib.request import Request, urlopen
 
 from research_agent.citation_checker import CitationChecker
+from research_agent.config import load_environment
 from research_agent.embeddings import HashEmbeddingProvider
 from research_agent.gemini_client import GeminiAPIError, GeminiClient, extract_gemini_embeddings, extract_gemini_text
 from research_agent.llm_synthesizer import GeminiReportSynthesizer
@@ -100,6 +102,31 @@ class FakeResponse:
 
 
 class ResearchPipelineTests(unittest.TestCase):
+    def test_load_environment_reads_env_file_without_overriding_shell(self) -> None:
+        previous_key = os.environ.pop("GEMINI_API_KEY", None)
+        previous_model = os.environ.pop("GEMINI_MODEL", None)
+        try:
+            with TemporaryDirectory() as temp_dir:
+                env_path = Path(temp_dir) / ".env"
+                env_path.write_text(
+                    "GEMINI_API_KEY=test-secret\nGEMINI_MODEL=gemini-2.5-flash\n",
+                    encoding="utf-8",
+                )
+
+                load_environment(env_path)
+
+                self.assertEqual(os.getenv("GEMINI_API_KEY"), "test-secret")
+                self.assertEqual(os.getenv("GEMINI_MODEL"), "gemini-2.5-flash")
+        finally:
+            if previous_key is None:
+                os.environ.pop("GEMINI_API_KEY", None)
+            else:
+                os.environ["GEMINI_API_KEY"] = previous_key
+            if previous_model is None:
+                os.environ.pop("GEMINI_MODEL", None)
+            else:
+                os.environ["GEMINI_MODEL"] = previous_model
+
     def test_cursor_windsurf_report_has_sources_and_citations(self) -> None:
         report = self.mock_pipeline().run("compare Cursor and Windsurf")
 

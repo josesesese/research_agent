@@ -6,6 +6,10 @@ import argparse
 import os
 from pathlib import Path
 
+from research_agent.config import load_environment
+
+load_environment()
+
 
 def build_parser() -> argparse.ArgumentParser:
     parser = argparse.ArgumentParser(description="Run the Research Agent FastAPI backend.")
